@@ -1,0 +1,9 @@
+body{
+    background-color: midnightblue;
+    color: white;
+}
+input{
+    max-width: 10cm;
+    margin:7px;
+}
+

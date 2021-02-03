@@ -62,7 +62,7 @@ class NewTalk extends React.Component{
         }
         var hour = today.getHours();
         var h1 = data.get("time").substr(0,2);
-        if(parseInt(h1) < 10 || parseInt(h1) > 17){
+        if(parseInt(h1) < 10 || parseInt(h1) > 19){
             flag=0;
             console.log("invalid");
         }

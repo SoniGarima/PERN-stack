@@ -143,8 +143,18 @@ app.post('/mender/:userid/putobjresp',async(req,res)=>{
     res.send(putIn.rows);
 })
 
+app.post('/mender/:userid/registertalk/:talkid',async(req,res)=>{
+    const {userid,talkid} = req.params;
+    const register = await pool.query("insert into menderschema.attends(talkid,userid) values($1,$2)",[talkid,userid]);
+    const reg2 = await pool.query("update menderschema.talks set bookedseats = bookedseats+1 where talkid = $1",[talkid]);
+    res.send(register.rows[0]);
+})
 
-
+app.get('/mender/registeredtalks/:userid',async(req,res)=>{
+    const {userid} = req.params;
+    const fet = await pool.query("select talkid from menderschema.attends as t where t.userid = $1",[userid]);
+    res.send(fet.rows);
+})
 app.listen(5000, () => {
     console.log("server has started on port 5000");
 });

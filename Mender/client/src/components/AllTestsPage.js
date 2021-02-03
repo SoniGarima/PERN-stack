@@ -21,7 +21,7 @@ class AllTestsPage extends React.Component{
             headers: { "Content-Type": "application/json" },
             body: f
         })
-        this.displayScore(f);
+        this.displayScore(object);
     }
 
     displayScore(f){
@@ -36,18 +36,25 @@ class AllTestsPage extends React.Component{
         anxietyScore = anxietyScore*100/18;
         document.getElementById("objtest").innerHTML = "";
         document.getElementById("objtestres").innerHTML = `<h3>depression score =${depressionScore}</h3><br><h3>anxiety score = ${anxietyScore}</h3>`;
+        if(anxietyScore > 60 || depressionScore > 50){
+            console.log(this.userid);
+            document.getElementById("optionalbook").innerHTML = `<p>You need help. But don't worry, we're here for you.</p><br/><button id="btnx" class="btn btn-warning m-3">Book an appointment</button>`;
+            document.getElementById("btnx").onclick = ()=>{window.location = `/users/${this.userid}/book-an-appointment`;};
+        }
+        else{
+            document.getElementById("optionalbook").innerHTML = "You will be fine. Your test results show that you are just a bit stressed. Listen to a soothing music, that helps!";
+        }
     }
 
     render(){
         return(
             <Fragment>
-                <div id="objtest">
-                <p>Answer all of these honestly...</p>
+                <div style={{textAlign:"center"}} id="objtest">
+                <p >Answer all of these honestly...</p>
                 <form onSubmit={this.submitObjectiveRes}>
                     {/* depression */}
                     <div class="form-control">
-                        <label>How often have you been bothered by feeling down, depressed or hopeless?
-</label><br/>
+                        <label>How often have you been bothered by feeling down, depressed or hopeless?</label><br/>
                         <input type="radio"  name="q1" value="A"/>
                         <label for="A">Not at all</label><br/>
                         <input type="radio"  name="q1" value="B"/>
@@ -215,7 +222,8 @@ class AllTestsPage extends React.Component{
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 </div>
-                <div id="objtestres"></div>
+                <div style={{textAlign:"center"}} id="objtestres"></div>
+                <div style={{textAlign:"center"}} id="optionalbook"></div>
             </Fragment>
         );
     }

@@ -4,11 +4,14 @@ class Talks extends React.Component{
         super(props);
         this.state = {Talks : ''};
         this.userid = this.props.match.params.userid;
+        this.status = "Register";
     }
     componentDidMount(){
         this.displaytalks();
     }
-    bookTalk = async (id) =>{
+    bookTalk = async (id,e) =>{
+        e.preventDefault();
+        console.log("dfffhbf");
         const reg = await fetch(`http://localhost:5000/mender/registeredtalks/${this.userid}`);
         const regtalks = await reg.json();
         const resp1 = await fetch('http://localhost:5000/mender/alltalks');
@@ -16,11 +19,15 @@ class Talks extends React.Component{
         var flag=true;
         for(var i=0;i<regtalks.length;i++){
             if(regtalks[i].talkid == id){
+                console.log(regtalks[i].talkid);
                 flag=false;
+                document.getElementById(`id${regtalks[i].talkid}`).innerHTML = "Already Registered";
+                console.log(flag);
             }
         }
         for(var i =0;i<talks1.length;i++){
             if(talks1[i].maxentries == talks1[i].bookedseats){
+                document.getElementById(`id${regtalks[i].talkid}`).innerHTML = "Seats Full";
                 flag=false;
             }
         }
@@ -42,7 +49,7 @@ class Talks extends React.Component{
                     <p>Maximum Entries Allowed :{talk.maxentries}</p>
                     <p>Booked Seats :{talk.bookedseats}</p>
                     <p>Fee :{talk.fee}</p>
-                    <button onClick={this.bookTalk(talk.talkid)}>register</button>
+                    <button onClick={(e)=>this.bookTalk(talk.talkid,e)} id={`id${talk.talkid}`}>Register</button>
                 </li>
                 ))
             });

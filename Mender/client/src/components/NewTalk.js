@@ -94,7 +94,7 @@ class NewTalk extends React.Component{
                     headers:{"content-type" : "application/json"},
                     body:JSON.stringify(object)
                 })
-                // window.location = `/speakers/${this.speakerid}`;
+                window.location = `/speakers/${this.speakerid}`;
             }
         }
     }

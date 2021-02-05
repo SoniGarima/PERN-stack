@@ -33,13 +33,13 @@ class UserDashboard extends React.Component{
             this.setState({
                 Appoints : appo.map((item)=>(
                     <li class="list-group-item">
-                        Date : {item.bookdate}
+                        Date : {item.bookdate}<br/>
                         time : {item.booktime}
                     </li>
                 )),
                 Talks : talks.map((item)=>(
                     <li class="list-group-item">
-                        Date : {item.talkdate}
+                        Date : {item.talkdate}<br/>
                         time : {item.talktime}
                     </li>
                 ))
